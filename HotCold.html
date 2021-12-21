@@ -1,88 +1,18 @@
-<script>
-
-    let L
-    let V
-    let T = []
-    let R
-    let A
-     
-    function game() {
-
-        ChoixN(prompt("Choisi un niveau de difficulte entre 0 et 5"))
-        A = Math.floor(Math.random() * L + 1)
-        console.log(A)
-        R = prompt("Trouve le nombre Mystere ! Rentre une valeur entre 0 et " + L)
-        while (R != A && V != 1) {
-            if (Number.isInteger(parseInt(R))) {
-                if (testT()) {
-                    R = prompt("Tu as deja joue la valeur " + testT() + ", rentre une valeur plus " + testR() + ", " + " tentatives restantes: " + V)
-                } else {
-                    T.push(R)
-                    V--
-                    R = prompt("Rentre une valeur plus " + testR() + ", " + " tentatives restantes: " + V)
-                }
-            } else { R = prompt("Ce n'est pas un nombre, rentre une valeur entre 0 et " + L) }
-        }
-
-        if (V == 1) {
-            alert("nombre de tentative depasse")
-
-        } else {
-            alert("You Win !!!")
-        }
-        restart()
-    }
-
-    function restart() {
-        let again = prompt('veux tu rejouer ? Y/N')
-        if (again == 'Y') {
-            game()
-        }
-    }
-
-    function ChoixN(C) {
-        switch (C) {
-            case '1':
-                L = 50
-                V = 10
-                break;
-            case '2':
-                L = 100
-                V = 10
-                break;
-            case '3':
-                L = 300
-                V = 10
-                break;
-            case '4':
-                L = 500
-                V = 10
-                break;
-            case '5':
-                L = 1000
-                V = 5
-                break;
-            default:
-                ChoixN(prompt("Choisi un niveau de difficulte entre 0 et 5"))
-        }
-
-    }
-
-    function testT() {
-        for (var i = 0; i < T.length; i++) {
-            if (T[i] == R) {
-                return T[i]
-            }
-        }
-    }
-
-    function testR() {
-        if (R < A) {
-            return "haute"
-        } else {
-            return "basse"
-        }
-    }
-
-    game()
-</script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="javascript.js" async></script>
+    <title>HotCold</title>
+</head>
+<body>
+    <div class="contenaire1">
+        <h1>HotCold</h1>
+    <div id="phrase"></div>
+        <input type="text" placeholder="Entrez une valeur ici" id="in">
+    <button type="button" onclick="game();">Récupérer la valeur</button>
+        </div>
+</body>
+</html>
