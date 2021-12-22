@@ -1,33 +1,36 @@
 
-
-// //let texte = ["Choisi un niveau de difficulte entre 0 et 5 :", 
-// "'Trouve le nombre Mystere ! Rentre une valeur entre 0 et ' + L",
-// "Tu as deja joue la valeur " + testT() + ", rentre une valeur plus " + testR() + ", " + " tentatives restantes: + V",
-// "Rentre une valeur plus " + testR() + ", " + " tentatives restantes: + V", "Ce n'est pas un nombre, rentre une valeur entre 0 et + L"]
 let L // valeur max de la fourchette
 let V //nombre de tentative restante
 let T = [] // nombre deja joué
 let A // nombre a trouver
 let rythme = 1
 let input // valeur entrée
-let yes = "Y"
 
 
-document.getElementById("phrase").textContent = "Choisi un niveau de difficulte entre 0 et 5 :";
+
 
 // valeur recuperé du input 
 function inp() {
+
     input = document.getElementById("in").value;
 
     switch (rythme) {
         case 1:
-            ChoixN(input)
             rythme += 1
+            ChoixN(input)
+            if (input < 1 || input > 5) {
+                break
+            }
             A = Math.floor(Math.random() * L + 1)
-            document.getElementById("phrase").textContent = "Trouve le nombre Mystere ! Rentre une valeur entre 0 et " + L;
+            document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "Trouve le nombre Mystere ! Rentre une valeur entre 0 et " + L;
             break;
         case 2:
             game()
+    }
+
+    if (input == "Y") {
+        document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "Choisi un niveau de difficulte entre 1 et 5 :";
+        rythme =1
     }
 
 }
@@ -38,42 +41,36 @@ function game() {
     while (input != A && V != 1) {
         if (Number.isInteger(parseInt(input))) {
             if (testT()) {
-                document.getElementById("phrase").textContent = "Tu as deja joue la valeur " + testT() + ", rentre une valeur plus " + testR() + ", " + " tentatives restantes:" + V;
+                document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "Tu as deja joue la valeur " + testT() + ", rentre une valeur plus " + testR() + ", " + " tentatives restantes: " + V;
                 break
             } else {
                 T.push(input)
                 V--
-                document.getElementById("phrase").textContent = "Rentre une valeur plus " + testR() + ", " + " tentatives restantes:" + V;
+                document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "Rentre une valeur plus " + testR() + ", " + " tentatives restantes: " + V;
                 break
             }
         } else {
-            document.getElementById("phrase").textContent = "Ce n'est pas un nombre, rentre une valeur entre 0 et" + L;
+            document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "Ce n'est pas un nombre, rentre une valeur entre 0 et " + L;
             break;
         }
     }
     if (V == 1) {
-        document.getElementById("phrase").textContent = "nombre de tentative depasse, You Loose, veux tu rejouer ? Y/N";
-        rythme = 1
+        document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "nombre de tentative depasse, You Loose, veux tu rejouer ? Y/N";
+        rythme = 0
     }
 
     if (input == A) {
-        document.getElementById("phrase").textContent = "You Win ,veux tu rejouer ? Y/N"
-        rythme = 1
+        document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "You Win ,veux tu rejouer ? Y/N"
+        rythme = 0
     }
 
 }
 
 
-// redemarre la pertie 
-// function restart() {
-//     document.getElementById("phrase").textContent = 'veux tu rejouer ? Y/N';
-
-//     rythme = 1
-// }
-
-
 // choix du niveau 
+
 function ChoixN(C) {
+
     switch (C) {
         case '1':
             L = 50
@@ -97,7 +94,7 @@ function ChoixN(C) {
             break;
         default:
             rythme = 1
-            document.getElementById("phrase").textContent = "Choisi un niveau de difficulte entre 0 et 5 :";
+            document.getElementById("phrase").getElementsByTagName('p')[0].textContent = "je n'ai pas bien compris ton choix, choisi un niveau de difficulté entre 1 et 5 :";
     }
 
 }
